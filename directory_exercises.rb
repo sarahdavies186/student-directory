@@ -17,6 +17,13 @@ def input_students
   students
 end
 
+#method to print students whose name begins with specific letter
+def print_students_specific_letter(students, letter)
+  students.each do |student|
+    puts "#{student[:name]}" if student[:name][0] == letter
+  end
+end
+
 def print_header
   puts "The students of Villains Academy"
   puts "-------------"
@@ -35,6 +42,7 @@ end
 #nothing happens until we call the methods
 
 students = input_students
-print_header
-print(students)
-print_footer(students)
+#print_students_specific_letter(students, letter)
+#print_header
+#print(students)
+#print_footer(students)
