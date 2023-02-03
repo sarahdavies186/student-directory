@@ -24,6 +24,13 @@ def print_students_specific_letter(students, letter)
   end
 end
 
+#method to print students names shorter than 12 characters
+def print_students_twelve_characters(students)
+  students.each do |student|
+    puts "#{student[:name]}" if student[:name].length <= 11
+  end
+end
+
 def print_header
   puts "The students of Villains Academy"
   puts "-------------"
@@ -42,7 +49,7 @@ end
 #nothing happens until we call the methods
 
 students = input_students
-#print_students_specific_letter(students, letter)
+print_students_twelve_characters(students)
 #print_header
 #print(students)
 #print_footer(students)
