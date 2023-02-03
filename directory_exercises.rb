@@ -31,6 +31,15 @@ def print_students_twelve_characters(students)
   end
 end
 
+#loop to print all students
+def print_students(students)
+  index = 0
+  while index < students.length
+    puts "#{students[index][:name]} (#{students[index][:cohort]} cohort)"
+    index += 1
+  end
+end
+
 def print_header
   puts "The students of Villains Academy"
   puts "-------------"
@@ -49,7 +58,8 @@ end
 #nothing happens until we call the methods
 
 students = input_students
-print_students_twelve_characters(students)
+print_students(students)
+#print_students_twelve_characters(students)
 #print_header
 #print(students)
 #print_footer(students)
