@@ -1,3 +1,4 @@
+#user input to add student details
 def input_students
   puts "Please enter the details of the students"
   puts "To finish, just hit return twice"
