@@ -1,30 +1,45 @@
 def input_students
-  puts "Please enter the names of the students"
+  puts "Please enter the details of the students"
   puts "To finish, just hit return twice"
   #create an empty array
   students = []
-  #get the first name
-  name = gets.chomp
-  #while the name is not empty, repeat this code
-  while !name.empty?
-    #add the student hash to the array
-    students << { name: name, cohort: :november }
-    puts "Now we have #{students.count} students"
-    #get another name from the user
+  continue = true
+
+  while continue
+    puts "Please enter the name"
     name = gets.chomp
+
+    if name.empty?
+      continue = false
+    else
+      puts "Please enter your country of birth"
+      country = gets.chomp
+      puts "Please enter your favourite hobby"
+      hobby = gets.chomp
+
+      #enter info into array
+      students << {
+        name: name,
+        cohort: :november,
+        country: country,
+        hobby: hobby,
+      }
+
+      puts "Now we have #{students.count} students"
+    end
   end
   #return the array of students
   students
 end
 
-#method to print students whose name begins with specific letter
+#print students whose name begins with specific letter
 def print_students_specific_letter(students, letter)
   students.each do |student|
     puts "#{student[:name]}" if student[:name][0] == letter
   end
 end
 
-#method to print students names shorter than 12 characters
+#print students names shorter than 12 characters
 def print_students_twelve_characters(students)
   students.each do |student|
     puts "#{student[:name]}" if student[:name].length <= 11
