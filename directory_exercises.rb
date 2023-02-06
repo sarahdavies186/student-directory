@@ -12,20 +12,22 @@ def input_students
     if name.empty?
       continue = false
     else
+      puts "Please enter your cohort"
+      cohort = gets.chomp
+      cohort = "unknown" if cohort.empty?
       puts "Please enter your country of birth"
       country = gets.chomp
       puts "Please enter your favourite hobby"
       hobby = gets.chomp
 
       #enter info into array
-      students << {
-        name: name,
-        cohort: :november,
-        country: country,
-        hobby: hobby,
-      }
+      students << { name: name, cohort: cohort, country: country, hobby: hobby }
 
-      puts "Now we have #{students.count} students"
+      if students.length == 1
+        puts "Now we have #{students.count} student".center(70)
+      else
+        puts "Now we have #{students.count} students".center(70)
+      end
     end
   end
   #return the array of students
@@ -50,24 +52,32 @@ end
 def print_students(students)
   index = 0
   while index < students.length
-    puts "#{students[index][:name]} (#{students[index][:cohort]} cohort)"
+    puts "#{students[index][:name]}, #{students[index][:cohort]} cohort, #{students[index][:country]}, hobby #{students[index][:hobby]} ".center(
+           70,
+         )
     index += 1
   end
 end
 
 def print_header
-  puts "The students of Villains Academy"
-  puts "-------------"
+  puts "The students of Villains Academy".center(70)
+  puts "-------------".center(70)
 end
 
 def print(students)
   students.each_with_index do |student, index|
-    puts "#{index + 1}. #{student[:name]} (#{student[:cohort]} cohort)"
+    puts "#{index + 1}. #{student[:name]} (#{student[:cohort]} cohort)".center(
+           70,
+         )
   end
 end
 
 def print_footer(students)
-  puts "Overall we have #{students.count} great students"
+  if students.length == 1
+    puts "Overall we have #{students.count} great student".center(70)
+  else
+    puts "Overall we have #{students.count} great students".center(70)
+  end
 end
 
 #nothing happens until we call the methods
@@ -75,6 +85,6 @@ end
 students = input_students
 print_students(students)
 #print_students_twelve_characters(students)
-#print_header
+print_header
 #print(students)
-#print_footer(students)
+print_footer(students)
