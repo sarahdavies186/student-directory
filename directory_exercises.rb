@@ -22,7 +22,9 @@ def input_students
       hobby = gets.chomp
 
       #enter info into array
-      students << { name: name, cohort: cohort, country: country, hobby: hobby }
+      student = { name: name, cohort: cohort, country: country, hobby: hobby }
+
+      students << student
 
       if students.length == 1
         puts "Now we have #{students.count} student".center(70)
@@ -52,11 +54,33 @@ end
 #loop to print all students
 def print_students(students)
   index = 0
+  if students.length == 0
+    puts "Sorry you haven't entered any students".center(70)
+  end
   while index < students.length
     puts "#{students[index][:name]}, #{students[index][:cohort]} cohort, #{students[index][:country]}, hobby #{students[index][:hobby]} ".center(
            70,
          )
     index += 1
+  end
+end
+
+#print students by cohort
+def print_cohort(students)
+  students_by_cohort = {}
+
+  students.each do |student|
+    cohort = "#{student[:cohort]}"
+    name = "#{student[:name]}"
+
+    if students_by_cohort[cohort] == nil
+      students_by_cohort[cohort] = [name]
+    else
+      students_by_cohort[cohort].push(name)
+    end
+  end
+  students_by_cohort.map do |key, value|
+    puts "Students in cohort #{key} are #{value.join(", ")}"
   end
 end
 
@@ -84,8 +108,11 @@ end
 #nothing happens until we call the methods
 
 students = input_students
-print_students(students)
+print_cohort(students)
+#print_students(students)
 #print_students_twelve_characters(students)
-print_header
+#print_header
 #print(students)
-print_footer(students)
+#print_footer(students)
+
+puts students
