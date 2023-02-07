@@ -1,28 +1,19 @@
 @students = [] #an empty array accessible to all methods
 
 def input_students
-  puts "Please enter the names of the students"
-  puts "To finish, just hit return twice"
-  #get the first name
-  name = STDIN.gets.chomp
-  #while the name is not empty, repeat this code
-  while !name.empty?
-    #add the student hash to the array
+  puts "Please enter the names of the students. To finish, just hit return twice"
+  while name = STDIN.gets.chomp
+    break if name.empty?
     @students << { name: name, cohort: :november }
     puts "Now we have #{@students.count} students"
-    #get another name from the user
-    name = STDIN.gets.chomp
   end
 end
 
 def save_students
-  #open the file for writing
   file = File.open("students.csv", "w")
-  #iterate over the array of students
   @students.each do |student|
-    student_data = [student[:name], student[:cohort]]
-    csv_line = student_data.join(", ")
-    file.puts csv_line
+    student_data = [student[:name], student[:cohort]].join(",")
+    file.puts student_data
   end
   file.close
 end
@@ -37,13 +28,14 @@ def load_students(filename = "students.csv")
 end
 
 def try_load_students
-  filename = AGRV.first #first argument from command line
+  filename = ARGV.first #first argument from command line
   return if filename.nil? #get out of the method if it isn't given
   if File.exist?(filename) #if it exists
     load_students(filename)
     puts "Loaded #{@students.count} from #{filename}"
   else
     puts "Sorry, #{filename} doesn't exist"
+    exit
   end
 end
 
@@ -79,7 +71,7 @@ def process(selection)
   when "4"
     load_students
   when "9"
-    exit #this will exit the programme
+    exit
   else
     puts "I don't know what you mean, try again"
   end
@@ -90,7 +82,7 @@ def print_header
   puts "-------------"
 end
 
-def print_students_list()
+def print_students_list
   @students.each do |student|
     puts "#{student[:name]} (#{student[:cohort]} cohort)"
   end
@@ -102,4 +94,5 @@ end
 
 #nothing happens until we call the methods
 
+try_load_students
 interactive_menu
