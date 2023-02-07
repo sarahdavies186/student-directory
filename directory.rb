@@ -28,9 +28,9 @@ def load_students(filename = "students.csv")
 end
 
 def try_load_students
-  filename = ARGV.first #first argument from command line
-  return if filename.nil? #get out of the method if it isn't given
-  if File.exist?(filename) #if it exists
+  filename = ARGV.first
+  return if filename.nil?
+  if File.exist?(filename)
     load_students(filename)
     puts "Loaded #{@students.count} from #{filename}"
   else
@@ -63,14 +63,19 @@ end
 def process(selection)
   case selection
   when "1"
+    puts "You chose to enter the students details"
     students = input_students
   when "2"
+    puts "You chose to see a list of the students"
     show_students
   when "3"
+    puts "You have saved the list of students"
     save_students
   when "4"
+    puts "You have loaded the list of students"
     load_students
   when "9"
+    puts "Bye!"
     exit
   else
     puts "I don't know what you mean, try again"
