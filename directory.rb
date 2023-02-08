@@ -1,5 +1,5 @@
 @students = [] #an empty array accessible to all methods
-@filename = " "
+@filename = "students.csv"
 
 def input_students
   puts "Please enter the names of the students. To finish, just hit return twice"
@@ -30,8 +30,9 @@ def save_students
   file.close
 end
 
-def load_students(filename = "students.csv")
-  file = File.open(filename, "r")
+def load_students
+  choose_file
+  file = File.open(@filename, "r")
   file.readlines.each do |line|
     name, cohort = line.chomp.split(",")
     @students << { name: name, cohort: cohort.to_sym }
@@ -40,13 +41,13 @@ def load_students(filename = "students.csv")
 end
 
 def try_load_students
-  choose_file
-  return if @filename.nil?
-  if File.exist?(@filename)
-    load_students(@filename)
-    puts "Loaded #{@students.count} from #{@filename}"
+  filename = ARGV.first
+  return if filename.nil?
+  if File.exist?(filename)
+    load_students(filename)
+    puts "Loaded #{@students.count} from #{filename}"
   else
-    puts "Sorry, #{@filename} doesn't exist"
+    puts "Sorry, #{filename} doesn't exist"
     exit
   end
 end
