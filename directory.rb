@@ -1,4 +1,5 @@
 @students = [] #an empty array accessible to all methods
+@filename = " "
 
 def input_students
   puts "Please enter the names of the students. To finish, just hit return twice"
@@ -9,8 +10,19 @@ def input_students
   end
 end
 
+def choose_file
+  puts "What file would you like to use? Type 1 for students.csv"
+  file_choice = STDIN.gets.chomp
+  if file_choice == "1"
+    @filename = "students.csv"
+  else
+    @filename = file_choice
+  end
+end
+
 def save_students
-  file = File.open("students.csv", "w")
+  choose_file
+  file = File.open(@filename, "w")
   @students.each do |student|
     student_data = [student[:name], student[:cohort]].join(",")
     file.puts student_data
@@ -28,13 +40,13 @@ def load_students(filename = "students.csv")
 end
 
 def try_load_students
-  filename = ARGV.first
-  return if filename.nil?
-  if File.exist?(filename)
-    load_students(filename)
-    puts "Loaded #{@students.count} from #{filename}"
+  choose_file
+  return if @filename.nil?
+  if File.exist?(@filename)
+    load_students(@filename)
+    puts "Loaded #{@students.count} from #{@filename}"
   else
-    puts "Sorry, #{filename} doesn't exist"
+    puts "Sorry, #{@filename} doesn't exist"
     exit
   end
 end
@@ -69,11 +81,11 @@ def process(selection)
     puts "You chose to see a list of the students"
     show_students
   when "3"
-    puts "You have saved the list of students"
     save_students
+    puts "You have saved the list of students"
   when "4"
-    puts "You have loaded the list of students"
     load_students
+    puts "You have loaded the list of students"
   when "9"
     puts "Bye!"
     exit
